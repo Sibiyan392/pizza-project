@@ -3,19 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizza Delight</title>
+    <title>Pizza Delight - Taste the Perfection</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
+            background-color: #fefefe;
+            color: #333;
         }
         header {
-            background-color: #ff5733;
+            background-color: #ff4500;
             color: white;
-            padding: 20px;
+            padding: 30px 10px;
             text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
         header h1 {
             margin: 0;
@@ -32,65 +36,220 @@
         }
         .hero img {
             width: 100%;
-            max-width: 600px;
-            border-radius: 10px;
+            max-width: 700px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
-        .features {
+        .hero h2 {
+            margin-top: 20px;
+            color: #ff4500;
+        }
+        .menu-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .menu-section button {
+            background-color: #ff4500;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        .menu-section button:hover {
+            background-color: #e63e00;
+        }
+        .menu-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 700px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            z-index: 1000;
+        }
+        .menu-modal h2 {
+            margin-top: 0;
+            color: #ff4500;
+            text-align: center;
+        }
+        .menu-item {
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
-        }
-        .features div {
-            flex: 1;
-            margin: 0 10px;
-            background-color: #fff;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
             border-radius: 10px;
+            background-color: #f9f9f9;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
         }
-        .features div img {
-            max-width: 100px;
-            margin-bottom: 10px;
+        .menu-item h3 {
+            margin: 0;
+            color: #ff4500;
+        }
+        .menu-item p {
+            margin: 5px 0;
+            color: #333;
+        }
+        .menu-item span {
+            font-weight: bold;
+            color: #333;
+        }
+        .menu-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        .menu-item-content {
+            flex: 1;
+        }
+        .menu-item button {
+            background-color: #ff4500;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .menu-item button:hover {
+            background-color: #e63e00;
+        }
+        .close-modal {
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .close-modal:hover {
+            background-color: #555;
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
         }
         footer {
-            background-color: #343a40;
+            background-color: #333;
             color: white;
+            padding: 20px;
             text-align: center;
-            padding: 10px;
-            margin-top: 20px;
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Welcome to Pizza Delight</h1>
+        <h1>Pizza Delight</h1>
+        <p>Your favorite pizza, made with love and delivered fresh!</p>
     </header>
     <div class="container">
+        <!-- Hero Section -->
         <div class="hero">
-            <img src="https://source.unsplash.com/600x400/?pizza" alt="Delicious Pizza">
+            <img src="https://cdn.pixabay.com/photo/2017/12/09/08/18/pizza-3007395_960_720.jpg" alt="Delicious Pizza">
             <h2>Order the best pizza in town!</h2>
         </div>
-        <div class="features">
-            <div>
-                <img src="https://source.unsplash.com/100x100/?chef" alt="Chef">
-                <h3>Quality Ingredients</h3>
-                <p>We use only the freshest ingredients for every pizza.</p>
-            </div>
-            <div>
-                <img src="https://source.unsplash.com/100x100/?delivery" alt="Delivery">
-                <h3>Fast Delivery</h3>
-                <p>Get your pizza delivered hot and fresh in no time.</p>
-            </div>
-            <div>
-                <img src="https://source.unsplash.com/100x100/?oven" alt="Oven">
-                <h3>Wood-Fired Ovens</h3>
-                <p>Experience the taste of authentic wood-fired pizzas.</p>
-            </div>
+
+        <!-- Menu Section -->
+        <div class="menu-section">
+            <button onclick="openMenu()">View Menu</button>
         </div>
     </div>
+
+    <!-- Menu Modal -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="menu-modal" id="menuModal">
+        <button class="close-modal" onclick="closeMenu()">Close</button>
+        <h2>Our Menu</h2>
+        <div class="menu-item">
+            <img src="static/Margherita Pizza.jpg" alt="Margherita Pizza">
+            <div class="menu-item-content">
+                <h3>Margherita Pizza</h3>
+                <p>Classic pizza with fresh mozzarella and basil.</p>
+                <p>Price: <span>R80</span></p>
+            </div>
+            <button onclick="orderPizza('Margherita', 80)">Order Now</button>
+        </div>
+        <div class="menu-item">
+            <img src="static/Pepperoni Pizza.jpg" alt="Pepperoni Pizza">
+            <div class="menu-item-content">
+                <h3>Pepperoni Pizza</h3>
+                <p>A crowd favorite with delicious pepperoni slices.</p>
+                <p>Price: <span>R100</span></p>
+            </div>
+            <button onclick="orderPizza('Pepperoni', 100)">Order Now</button>
+        </div>
+        <div class="menu-item">
+            <img src="static/Veggie Supreme Pizza.jpg" alt="Veggie Supreme Pizza">
+            <div class="menu-item-content">
+                <h3>Veggie Supreme Pizza</h3>
+                <p>A colorful mix of fresh vegetables and cheese.</p>
+                <p>Price: <span>R90</span></p>
+            </div>
+            <button onclick="orderPizza('Veggie Supreme', 90)">Order Now</button>
+        </div>
+        <div class="menu-item">
+            <img src="static/BBQ Chicken Pizza.jpg" alt="BBQ Chicken Pizza">
+            <div class="menu-item-content">
+                <h3>BBQ Chicken Pizza</h3>
+                <p>Grilled chicken, barbecue sauce, and melted cheese.</p>
+                <p>Price: <span>R120</span></p>
+            </div>
+            <button onclick="orderPizza('BBQ Chicken', 120)">Order Now</button>
+        </div>
+        <div class="menu-item">
+            <img src="static/Four Cheese Pizza.jpg" alt="Four Cheese Pizza">
+            <div class="menu-item-content">
+                <h3>Four Cheese Pizza</h3>
+                <p>A cheesy delight with four types of cheese.</p>
+                <p>Price: <span>R110</span></p>
+            </div>
+            <button onclick="orderPizza('Four Cheese', 110)">Order Now</button>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2025 Pizza Delight. All rights reserved.</p>
     </footer>
+
+    <script>
+        function openMenu() {
+            document.getElementById('menuModal').style.display = 'block';
+            document.getElementById('modalOverlay').style.display = 'block';
+        }
+
+        function closeMenu() {
+            document.getElementById('menuModal').style.display = 'none';
+            document.getElementById('modalOverlay').style.display = 'none';
+        }
+
+        function orderPizza(pizza, price) {
+            const merchantId = "25143689";
+            const merchantKey = "ylsrqtnexkrmn";
+            const url = `https://www.payfast.co.za/eng/process?merchant_id=${merchantId}&merchant_key=${merchantKey}&item_name=${encodeURIComponent(
+                pizza
+            )}&amount=${price}`;
+
+            window.location.href = url;
+        }
+    </script>
 </body>
 </html>
